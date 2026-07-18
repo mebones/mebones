@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="MEbones">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#14161a">
+<title>MEbones</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14161a; --panel:#1b1e25; --panel2:#22262f; --line:#2f3743;
+    --ink:#e9e5d9; --dim:#8a8f99; --faint:#5b6068;
+    --blaze:#ff5a1f; --blaze-deep:#c2400e; --olive:#88a457; --steel:#5f86b0;
+    --display:'Oswald','Arial Narrow','Impact',sans-serif;
+    --mono:'Space Mono','SFMono-Regular',ui-monospace,Menlo,monospace;
+    --ui:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg); color:var(--ink); font-family:var(--ui); line-height:1.4;
+    padding-bottom:calc(72px + env(safe-area-inset-bottom)); -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:560px; margin:0 auto; padding:0 16px}
+
+  header{position:sticky; top:0; z-index:20; background:linear-gradient(#14161a,#14161aee);
+    backdrop-filter:blur(6px); border-bottom:1px solid var(--line); padding-top:env(safe-area-inset-top);}
+  .brand{display:flex; align-items:baseline; gap:10px; padding:13px 16px 11px; max-width:560px; margin:0 auto}
+  .mark{font-family:var(--display); font-weight:700; text-transform:uppercase; letter-spacing:2px; font-size:24px; color:var(--ink); line-height:.8}
+  .mark em{font-style:normal; color:var(--blaze)}
+  .tag{margin-left:auto; font-family:var(--mono); font-size:9.5px; color:var(--faint); letter-spacing:1px}
+
+  .kicker{font-family:var(--display); text-transform:uppercase; letter-spacing:3px; font-size:12px; color:var(--dim); margin:22px 0 6px}
+  h1.big{font-family:var(--display); font-weight:700; text-transform:uppercase; font-size:34px; line-height:.95; margin:0 0 2px; letter-spacing:.5px}
+
+  .datebar{display:flex; align-items:center; gap:10px; margin:14px 0 4px}
+  .navbtn{width:40px; height:40px; flex:0 0 auto; border:1px solid var(--line); background:var(--panel); color:var(--ink);
+    font-size:18px; border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer}
+  .navbtn:active{background:var(--panel2)}
+  .datectr{flex:1; text-align:center}
+  .datectr .d1{font-family:var(--display); text-transform:uppercase; letter-spacing:2px; font-weight:600; font-size:15px}
+  .datectr .d2{font-family:var(--mono); font-size:11px; color:var(--dim); margin-top:2px; letter-spacing:.5px}
+  .today-pill{display:inline-block; margin:8px auto 0; font-family:var(--mono); font-size:11px; color:var(--blaze);
+    border:1px solid var(--blaze-deep); border-radius:20px; padding:3px 12px; cursor:pointer}
+  .center{text-align:center}
+
+  .meta{display:flex; gap:8px; margin:12px 0 4px}
+  .chip{flex:1; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:9px 10px; text-align:center}
+  .chip .k{font-family:var(--mono); font-size:9px; letter-spacing:1px; color:var(--faint); text-transform:uppercase}
+  .chip .v{font-family:var(--display); font-weight:600; font-size:18px; text-transform:uppercase; letter-spacing:1px; margin-top:1px}
+  .chip .v.accent{color:var(--blaze)}
+  .chip .v.kb{color:var(--steel)}
+
+  .set{background:var(--panel); border:1px solid var(--line); border-radius:14px; margin:14px 0; overflow:hidden; position:relative}
+  .set-hd{display:flex; align-items:center; gap:8px; padding:12px 14px 10px; border-bottom:1px solid var(--line)}
+  .set-hd .lbl{font-family:var(--display); font-weight:700; text-transform:uppercase; letter-spacing:2px; font-size:15px}
+  .set-hd .lbl b{color:var(--blaze); font-weight:700}
+  .set-hd .cnt{margin-left:auto; font-family:var(--mono); font-size:11px; color:var(--dim)}
+  .row{display:flex; align-items:center; gap:14px; padding:13px 14px; border-top:1px solid #232833; cursor:pointer}
+  .row:first-child{border-top:none}
+  .box{width:26px; height:26px; flex:0 0 auto; border:2px solid var(--faint); border-radius:7px; position:relative; transition:border-color .12s}
+  .box::after{content:""; position:absolute; inset:4px; border-radius:3px; background:var(--olive); transform:scale(0); transition:transform .12s}
+  .row.done .box{border-color:var(--olive)} .row.done .box::after{transform:scale(1)}
+  .exname{font-family:var(--mono); font-size:15px; letter-spacing:.2px}
+  .exname .num{color:var(--blaze); font-weight:700}
+  .row.done .exname{color:var(--dim); text-decoration:line-through; text-decoration-color:var(--faint)}
+  .row.done .exname .num{color:var(--olive)}
+  .stamp{position:absolute; right:12px; top:38px; font-family:var(--display); font-weight:700; font-size:26px; letter-spacing:2px;
+    color:var(--olive); border:3px solid var(--olive); border-radius:8px; padding:1px 8px; transform:rotate(-9deg);
+    opacity:0; pointer-events:none; text-transform:uppercase; transition:opacity .15s}
+  .set.complete .stamp{opacity:.9}
+
+  .cardio{background:var(--panel2); border:1px dashed var(--line); border-radius:12px; padding:13px 14px; margin:14px 0;
+    display:flex; align-items:center; gap:12px; cursor:pointer}
+  .cardio .ic{font-size:18px}
+  .cardio .t1{font-family:var(--display); text-transform:uppercase; letter-spacing:2px; font-weight:600; font-size:14px}
+  .cardio .t2{font-family:var(--mono); font-size:11px; color:var(--dim)}
+  .cardio.done .box{border-color:var(--olive)} .cardio.done .box::after{transform:scale(1)}
+
+  /* Kettlebell card */
+  .kbcard{background:var(--panel); border:1px solid var(--line); border-radius:14px; margin:14px 0; overflow:hidden}
+  .kb-hd{padding:14px 14px 10px; border-bottom:1px solid var(--line)}
+  .kb-hd .l1{font-family:var(--display); font-weight:700; text-transform:uppercase; letter-spacing:2px; font-size:16px}
+  .kb-hd .l1 b{color:var(--steel)}
+  .kb-hd .l2{font-family:var(--mono); font-size:11px; color:var(--dim); margin-top:3px}
+  .kb-cue{padding:11px 14px; font-size:12.5px; color:var(--dim); border-bottom:1px solid #232833; font-style:italic}
+  ol.circuit{list-style:none; counter-reset:c; margin:0; padding:6px 14px 8px}
+  ol.circuit li{counter-increment:c; display:flex; gap:12px; padding:8px 0; font-family:var(--mono); font-size:14.5px; align-items:baseline}
+  ol.circuit li::before{content:counter(c); font-family:var(--display); font-weight:700; color:var(--steel); font-size:15px; min-width:16px}
+  ol.circuit li .num{color:var(--blaze); font-weight:700}
+  .stepper{display:flex; align-items:center; gap:10px; padding:10px 14px; border-top:1px solid #232833}
+  .stepper .lab{font-family:var(--display); text-transform:uppercase; letter-spacing:2px; font-size:13px; color:var(--dim); flex:1}
+  .stepper button{width:38px; height:38px; border:1px solid var(--line); background:var(--panel2); color:var(--ink); font-size:20px; border-radius:9px; cursor:pointer}
+  .stepper .val{font-family:var(--mono); font-weight:700; font-size:20px; min-width:34px; text-align:center; color:var(--steel)}
+  .kblog{display:flex; align-items:center; gap:14px; padding:14px; border-top:1px solid #232833; cursor:pointer}
+  .kblog .t1{font-family:var(--display); text-transform:uppercase; letter-spacing:2px; font-weight:600; font-size:15px}
+  .kblog.done .box{border-color:var(--olive)} .kblog.done .box::after{transform:scale(1)}
+  .kblog.done .t1{color:var(--olive)}
+  details.kbmore{border-top:1px solid #232833}
+  details.kbmore summary{padding:12px 14px; font-family:var(--display); text-transform:uppercase; letter-spacing:2px; font-size:13px; color:var(--dim); cursor:pointer; list-style:none}
+  details.kbmore summary::-webkit-details-marker{display:none}
+  details.kbmore summary::before{content:"+ "; color:var(--steel)}
+  details.kbmore[open] summary::before{content:"– "}
+  details.kbmore .inner{padding:0 14px 14px; font-family:var(--mono); font-size:12.5px; color:var(--dim); line-height:1.7}
+  details.kbmore .inner b{color:var(--ink)}
+
+  .restcard{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:26px 18px; text-align:center; margin:16px 0}
+  .restcard .big2{font-family:var(--display); font-weight:700; text-transform:uppercase; font-size:40px; letter-spacing:2px; color:var(--ink)}
+  .restcard .sub{color:var(--dim); font-family:var(--mono); font-size:12px; margin-top:6px}
+
+  .tally-wrap{margin:20px 0 6px}
+  .tally{display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-top:8px}
+  .cell{aspect-ratio:1; border:1px solid var(--line); border-radius:5px; background:var(--panel);
+    display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:9px; color:var(--faint)}
+  .cell.bwon{background:var(--blaze); border-color:var(--blaze); color:#1a1205; font-weight:700}
+  .cell.kbon{background:var(--steel); border-color:var(--steel); color:#08111a; font-weight:700}
+  .cell.now{border-color:var(--blaze); color:var(--blaze)}
+  .tally-lbl{display:flex; justify-content:space-between; font-family:var(--mono); font-size:11px; color:var(--dim)}
+  .legend{display:flex; gap:14px; justify-content:center; margin-top:8px; font-family:var(--mono); font-size:10px; color:var(--dim)}
+  .legend span{display:inline-flex; align-items:center; gap:5px}
+  .legend i{width:10px; height:10px; border-radius:2px; display:inline-block}
+
+  .wk{background:var(--panel); border:1px solid var(--line); border-radius:14px; margin:12px 0; overflow:hidden}
+  .wk-hd{display:flex; align-items:center; gap:10px; padding:14px; cursor:pointer}
+  .wk-hd .n{font-family:var(--display); font-weight:700; font-size:22px; color:var(--blaze); min-width:56px; text-transform:uppercase; letter-spacing:1px}
+  .wk-hd .lv{font-family:var(--mono); font-size:11px; color:var(--dim)}
+  .wk-hd .cur{margin-left:auto; font-family:var(--mono); font-size:10px; color:var(--blaze); border:1px solid var(--blaze-deep); border-radius:20px; padding:2px 8px}
+  .wk-hd .arw{margin-left:auto; color:var(--faint); transition:transform .15s}
+  .wk-hd .cur + .arw{margin-left:8px}
+  .wk.open .arw{transform:rotate(90deg)}
+  .wk-body{display:none; padding:0 14px 8px} .wk.open .wk-body{display:block}
+  .day{border-top:1px solid var(--line); padding:12px 0}
+  .day .dh{font-family:var(--display); text-transform:uppercase; letter-spacing:2px; font-size:13px; color:var(--ink); margin-bottom:6px}
+  .day .dh span{color:var(--faint); font-family:var(--mono); font-size:10px; letter-spacing:.5px; margin-left:6px}
+  .day.kbday .dh{color:var(--steel)}
+  .setline{font-family:var(--mono); font-size:12.5px; color:var(--dim); padding:3px 0; padding-left:14px; text-indent:-14px}
+  .setline b{color:var(--ink); font-weight:700} .setline .num{color:var(--blaze)}
+  .cline{font-family:var(--mono); font-size:12px; color:var(--olive); padding-top:5px}
+  .kbline{font-family:var(--mono); font-size:12.5px; color:var(--dim); padding:2px 0}
+  .kbline .num{color:var(--blaze)}
+
+  .move{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:13px 14px; margin:10px 0}
+  .move h3{font-family:var(--display); font-weight:600; text-transform:uppercase; letter-spacing:1.5px; font-size:16px; margin:0 0 4px}
+  .move p{margin:0; font-size:13.5px; color:var(--dim)}
+  .move .tags{margin-top:6px; font-family:var(--mono); font-size:10px; color:var(--faint); letter-spacing:.5px}
+  .subhead{font-family:var(--display); text-transform:uppercase; letter-spacing:3px; font-size:13px; color:var(--steel); margin:20px 0 2px}
+  .subhead.bw{color:var(--blaze)}
+
+  .info{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:16px; margin:14px 0}
+  .info h3{font-family:var(--display); text-transform:uppercase; letter-spacing:2px; font-size:16px; margin:0 0 8px; color:var(--blaze)}
+  .info p{font-size:14px; color:var(--dim); margin:0 0 10px}
+  table.lvl{width:100%; border-collapse:collapse; font-family:var(--mono); font-size:12px}
+  table.lvl th,table.lvl td{border:1px solid var(--line); padding:7px 6px; text-align:center}
+  table.lvl th{color:var(--dim); text-transform:uppercase; font-size:10px; letter-spacing:.5px}
+  table.lvl td.lv{color:var(--blaze); font-weight:700; text-align:left}
+  .btn{display:block; width:100%; text-align:center; background:transparent; border:1px solid var(--line); color:var(--dim);
+    font-family:var(--mono); font-size:12px; padding:12px; border-radius:10px; margin-top:8px; cursor:pointer}
+  .btn:active{background:var(--panel2)}
+  .btn.warn{color:var(--blaze); border-color:var(--blaze-deep)}
+
+  nav{position:fixed; bottom:0; left:0; right:0; z-index:30; background:#12141a; border-top:1px solid var(--line);
+    display:flex; padding-bottom:env(safe-area-inset-bottom)}
+  nav button{flex:1; background:none; border:none; color:var(--faint); padding:10px 0 12px; cursor:pointer; font-family:var(--display);
+    text-transform:uppercase; letter-spacing:1.5px; font-size:11px; display:flex; flex-direction:column; align-items:center; gap:3px}
+  nav button .ic{font-size:17px; line-height:1}
+  nav button.active{color:var(--blaze)}
+  .hidden{display:none}
+  .foot{color:var(--faint); font-size:11px; font-family:var(--mono); text-align:center; margin:22px 0 8px; line-height:1.7}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="mark"><em>ME</em>bones</span>
+    <span class="tag">BODYWEIGHT + KETTLEBELL</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- TODAY -->
+  <section id="view-today">
+    <div class="datebar">
+      <button class="navbtn" id="prevDay">‹</button>
+      <div class="datectr"><div class="d1" id="dLine1">—</div><div class="d2" id="dLine2">—</div></div>
+      <button class="navbtn" id="nextDay">›</button>
+    </div>
+    <div class="center"><span class="today-pill hidden" id="jumpToday">↺ Back to today</span></div>
+
+    <div class="meta" id="metaStrip">
+      <div class="chip"><div class="k">Week</div><div class="v accent" id="mWeek">–</div></div>
+      <div class="chip"><div class="k">Block</div><div class="v" id="mLevel">–</div></div>
+      <div class="chip"><div class="k">Day</div><div class="v" id="mDay">–</div></div>
+    </div>
+
+    <div id="workoutArea"></div>
+
+    <div class="tally-wrap">
+      <div class="tally-lbl"><span>Sessions logged</span><span id="tallyCount">0 / 35</span></div>
+      <div class="tally" id="tally"></div>
+      <div class="legend"><span><i style="background:var(--blaze)"></i>Bodyweight</span><span><i style="background:var(--steel)"></i>Kettlebell</span></div>
+    </div>
+  </section>
+
+  <!-- PLAN -->
+  <section id="view-plan" class="hidden">
+    <div class="kicker">The Program</div>
+    <h1 class="big">7-Week Plan</h1>
+    <div id="planList"></div>
+    <p class="foot">Mon / Wed / Fri — bodyweight · Tue &amp; Sat — kettlebell · rest Thu &amp; Sun.<br>Weeks 1–3 = Level I · Weeks 4–7 = Level II.<br>Rest 2 min between bodyweight sets. Warm up before, stretch after.</p>
+  </section>
+
+  <!-- MOVES -->
+  <section id="view-moves" class="hidden">
+    <div class="kicker">Reference</div>
+    <h1 class="big">The Moves</h1>
+    <div class="subhead bw">Bodyweight</div>
+    <div id="moveListBW"></div>
+    <div class="subhead">Kettlebell</div>
+    <div id="moveListKB"></div>
+    <div class="info">
+      <h3>Cardio &amp; Games</h3>
+      <p>End each bodyweight day with your prescribed cardio — anything that spikes your heart rate counts.</p>
+      <p style="margin:0;color:var(--ink);font-family:var(--mono);font-size:12.5px">Sprints · jump rope · shadow boxing · med-ball tosses · stair / hill repeats · ruck · bag work · a sport.</p>
+    </div>
+  </section>
+
+  <!-- TEST -->
+  <section id="view-test" class="hidden">
+    <div class="kicker">Find Your Level</div>
+    <h1 class="big">Power 4 Test</h1>
+    <div class="info">
+      <p>Warm up, then do max reps of each with good form, resting 2 min between. Not pass/fail — it just sets your start line.</p>
+      <p style="color:var(--ink);font-family:var(--mono);font-size:12.5px;margin-bottom:0">1. Max Pull-Ups → 2. Max Squats → 3. Max Push-Ups → 4. Max Plank hold</p>
+    </div>
+    <div class="info">
+      <h3>Where you start</h3>
+      <table class="lvl">
+        <tr><th></th><th>Pull</th><th>Push</th><th>Squat</th><th>Plank</th></tr>
+        <tr><td class="lv">Prep</td><td>0–5</td><td>0–9</td><td>0–14</td><td>≤:30</td></tr>
+        <tr><td class="lv">Level I</td><td>6–11</td><td>10–19</td><td>15–29</td><td>:30–:59</td></tr>
+        <tr><td class="lv">Level II</td><td>12+</td><td>20+</td><td>30+</td><td>1:00+</td></tr>
+      </table>
+      <p style="margin-top:10px">This app runs <b style="color:var(--ink)">Level I (Wk 1–3)</b> → <b style="color:var(--ink)">Level II (Wk 4–7)</b>. If Level I feels light, jump to <b style="color:var(--ink)">Week 4</b> with the day arrows on Today. Re-test after each block.</p>
+    </div>
+    <div class="info">
+      <h3>How it fits together</h3>
+      <p style="margin:0;color:var(--ink);font-family:var(--mono);font-size:12.5px;line-height:1.7">
+        · Mon / Wed / Fri — bodyweight strength<br>
+        · Tue / Sat — kettlebell conditioning<br>
+        · Thu / Sun — full rest<br>
+        · Conditioning sits the day after strength on purpose — recover, don't stack hard days<br>
+        · Form over reps · Miss a day? Slide the week back, restart Monday<br>
+        · Take a "before" photo. You'll want it.</p>
+    </div>
+    <button class="btn warn" id="resetBtn">Reset all progress</button>
+  </section>
+
+  <p class="foot" id="footNote"></p>
+</main>
+
+<nav>
+  <button data-view="today" class="active"><span class="ic">◎</span>Today</button>
+  <button data-view="plan"><span class="ic">▤</span>Plan</button>
+  <button data-view="moves"><span class="ic">≡</span>Moves</button>
+  <button data-view="test"><span class="ic">◈</span>Test</button>
+</nav>
+
+<script>
+/* ---------- Start date ---------- */
+const START = new Date(2026, 6, 20); // Mon Jul 20, 2026
+START.setHours(0,0,0,0);
+const DOW = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+// day-of-week -> what happens. bw = bodyweight, kb = kettlebell flow A/B
+const DAYS = {0:{t:'bw',k:'mon'}, 1:{t:'kb',f:'A'}, 2:{t:'bw',k:'wed'}, 4:{t:'bw',k:'fri'}, 5:{t:'kb',f:'B'}};
+const OFFSETS = [0,1,2,4,5]; // Mon,Tue,Wed,Fri,Sat -> 5 sessions/week
+
+/* ---------- Bodyweight data (Wk1 & Wk4 = book templates; others = progressive step-ups) ---------- */
+const WEEKS = {
+ 1:{mon:{sets:[["5 Chin-Ups","10 Squats","10 Push-Ups",":30 Plank"],["4 Pull-Ups","10 Lunges / leg","9 Narrow Push-Ups","5 V-Sits"],["5 Narrow Chin-Ups","10 Squats","7 Push-Ups","10 In & Outs"]],cardio:"10 min cardio / game"},
+    wed:{sets:[["6 Pull-Ups","12 Squats","10 Push-Ups",":35 Plank"],["5 Chin-Ups","10 Lunges / leg","7 Diamond Push-Ups","16 Supermans"],["5 Narrow Pull-Ups","12 Squats","10 Push-Ups","20 Mason Twists"]],cardio:"10 min cardio / game"},
+    fri:{sets:[["6 Chin-Ups","12 Squats","12 Push-Ups",":40 Plank"],["6 Pull-Ups","11 Lunges / leg","10 Narrow Push-Ups","7 Hanging Leg Raises"],["6 Narrow Chin-Ups","12 Squats","12 Push-Ups","10 In & Outs"]],cardio:"10 min cardio / game"}},
+ 2:{mon:{sets:[["6 Chin-Ups","12 Squats","12 Push-Ups",":35 Plank"],["5 Pull-Ups","12 Lunges / leg","11 Narrow Push-Ups","7 V-Sits"],["6 Narrow Chin-Ups","12 Squats","9 Push-Ups","12 In & Outs"]],cardio:"10 min cardio / game"},
+    wed:{sets:[["7 Pull-Ups","14 Squats","12 Push-Ups",":40 Plank"],["6 Chin-Ups","12 Lunges / leg","9 Diamond Push-Ups","18 Supermans"],["6 Narrow Pull-Ups","14 Squats","12 Push-Ups","24 Mason Twists"]],cardio:"10 min cardio / game"},
+    fri:{sets:[["7 Chin-Ups","14 Squats","14 Push-Ups",":45 Plank"],["7 Pull-Ups","13 Lunges / leg","12 Narrow Push-Ups","9 Hanging Leg Raises"],["7 Narrow Chin-Ups","14 Squats","14 Push-Ups","12 In & Outs"]],cardio:"12 min cardio / game"}},
+ 3:{mon:{sets:[["7 Chin-Ups","14 Squats","14 Push-Ups",":40 Plank"],["6 Pull-Ups","14 Lunges / leg","13 Narrow Push-Ups","9 V-Sits"],["7 Narrow Chin-Ups","14 Squats","11 Push-Ups","14 In & Outs"]],cardio:"12 min cardio / game"},
+    wed:{sets:[["8 Pull-Ups","16 Squats","14 Push-Ups",":45 Plank"],["7 Chin-Ups","14 Lunges / leg","11 Diamond Push-Ups","20 Supermans"],["7 Narrow Pull-Ups","16 Squats","14 Push-Ups","28 Mason Twists"]],cardio:"12 min cardio / game"},
+    fri:{sets:[["8 Chin-Ups","16 Squats","16 Push-Ups",":50 Plank"],["8 Pull-Ups","15 Lunges / leg","14 Narrow Push-Ups","11 Hanging Leg Raises"],["8 Narrow Chin-Ups","16 Squats","16 Push-Ups","14 In & Outs"]],cardio:"12 min cardio / game"}},
+ 4:{mon:{sets:[["10 Pull-Ups","18 Squats","15 Push-Ups","1:00 Plank"],["11 Chin-Ups","13 Lunges / leg","14 Narrow Push-Ups","15 Hanging Leg Raises"],["10 Commando Pull-Ups","10 Squats","12 Diamond Push-Ups","22 Mountain Climbers"]],cardio:"15 min cardio / game"},
+    wed:{sets:[["12 Chin-Ups","10 Lunges w/ Twist / leg","8 T Push-Ups","14 Air Squats"],["1:00 Forearm Plank","26 Mountain Climbers","12 Push-Ups","10 Mountain Climbers","12 Supermans","1:00 Forearm Plank"],["10 Pull-Ups","18 Squats"]],cardio:"15 min cardio / game"},
+    fri:{sets:[["11 Pull-Ups","20 Squats w/ Med Ball","13 Diamond Push-Ups","18 Hanging Leg Raises"],["1:10 Plank","10 Burpees","18 Mountain Climbers","30 Wood Chops"],["15 Chin-Ups","16 Hanging Leg Raises","10 Lunges w/ Twist / leg","12 Narrow Push-Ups"]],cardio:"15 min cardio / game"}},
+ 5:{mon:{sets:[["11 Pull-Ups","20 Squats","17 Push-Ups","1:10 Plank"],["12 Chin-Ups","15 Lunges / leg","16 Narrow Push-Ups","17 Hanging Leg Raises"],["11 Commando Pull-Ups","12 Squats","14 Diamond Push-Ups","26 Mountain Climbers"]],cardio:"15 min cardio / game"},
+    wed:{sets:[["13 Chin-Ups","12 Lunges w/ Twist / leg","10 T Push-Ups","16 Air Squats"],["1:10 Forearm Plank","30 Mountain Climbers","14 Push-Ups","12 Mountain Climbers","14 Supermans","1:10 Forearm Plank"],["12 Pull-Ups","20 Squats"]],cardio:"15 min cardio / game"},
+    fri:{sets:[["12 Pull-Ups","22 Squats w/ Med Ball","15 Diamond Push-Ups","20 Hanging Leg Raises"],["1:20 Plank","12 Burpees","22 Mountain Climbers","34 Wood Chops"],["16 Chin-Ups","18 Hanging Leg Raises","12 Lunges w/ Twist / leg","14 Narrow Push-Ups"]],cardio:"15 min cardio / game"}},
+ 6:{mon:{sets:[["12 Pull-Ups","22 Squats","19 Push-Ups","1:20 Plank"],["13 Chin-Ups","17 Lunges / leg","18 Narrow Push-Ups","19 Hanging Leg Raises"],["12 Commando Pull-Ups","14 Squats","16 Diamond Push-Ups","30 Mountain Climbers"]],cardio:"18 min cardio / game"},
+    wed:{sets:[["14 Chin-Ups","14 Lunges w/ Twist / leg","12 T Push-Ups","18 Air Squats"],["1:20 Forearm Plank","34 Mountain Climbers","16 Push-Ups","14 Mountain Climbers","16 Supermans","1:20 Forearm Plank"],["14 Pull-Ups","22 Squats"]],cardio:"18 min cardio / game"},
+    fri:{sets:[["13 Pull-Ups","24 Squats w/ Med Ball","17 Diamond Push-Ups","22 Hanging Leg Raises"],["1:30 Plank","14 Burpees","26 Mountain Climbers","38 Wood Chops"],["18 Chin-Ups","20 Hanging Leg Raises","14 Lunges w/ Twist / leg","16 Narrow Push-Ups"]],cardio:"18 min cardio / game"}},
+ 7:{mon:{sets:[["14 Pull-Ups","24 Squats","21 Push-Ups","1:30 Plank"],["14 Chin-Ups","19 Lunges / leg","20 Narrow Push-Ups","21 Hanging Leg Raises"],["14 Commando Pull-Ups","16 Squats","18 Diamond Push-Ups","34 Mountain Climbers"]],cardio:"20 min cardio / game"},
+    wed:{sets:[["16 Chin-Ups","16 Lunges w/ Twist / leg","14 T Push-Ups","20 Air Squats"],["1:30 Forearm Plank","38 Mountain Climbers","18 Push-Ups","16 Mountain Climbers","18 Supermans","1:30 Forearm Plank"],["16 Pull-Ups","24 Squats"]],cardio:"20 min cardio / game"},
+    fri:{sets:[["15 Pull-Ups","26 Squats w/ Med Ball","19 Diamond Push-Ups","24 Hanging Leg Raises"],["1:45 Plank","16 Burpees","30 Mountain Climbers","42 Wood Chops"],["20 Chin-Ups","22 Hanging Leg Raises","16 Lunges w/ Twist / leg","18 Narrow Push-Ups"]],cardio:"20 min cardio / game"}}
+};
+
+/* ---------- Kettlebell flows (AMRAP) ---------- */
+const KB = {
+ A:{title:'Lower / Posterior AMRAP',
+    cue:'Never set the bell down through the first four moves — grip, core and upper back stay under load the whole time.',
+    moves:["10 Kettlebell Swings","10 Goblet Squats","10 Reverse Lunges (5 / side)","10 Cossack Squats (5 / side)","10 KB Sumo Jump Squats"]},
+ B:{title:'Push / Pull AMRAP',
+    cue:'Balances the squat-heavy day — presses and pulls to hit your upper body.',
+    moves:["10 Kettlebell Swings","8 Single-Arm Clean & Press (4 / side)","10 Bent-Over Rows (5 / side)","10 KB Thrusters","10 Russian Twists (5 / side)"]}
+};
+function kbMinutes(week){ return week<=3 ? 20 : 25; }
+const WEIGHT_GUIDE = 'Beginner 8–12 kg (18–26 lb) · Intermediate 16–20 kg (35–44 lb) · Advanced 20–28 kg+ (44–62 lb+). Pick a bell you can move with clean form even tired. Master the move, then master it fatigued, then go heavier. Expect to want a lighter bell for the pressing session.';
+const SCALING = '<b>Easier:</b> cut to 10–15 min · bodyweight lunges & Cossacks · swap jump squats for KB sumo squats or plain squats.<br><b>Harder:</b> heavier bell · push to 25–30 min · slow the lowering.';
+
+/* ---------- Move glossary ---------- */
+const MOVES_BW = [
+ ["Pull-Up","Palms facing away, hands just wider than your shoulders, arms fully extended. Pull your chin above the bar, lower with control. No swinging.","Back · Biceps"],
+ ["Chin-Up","Same as a pull-up but palms face you. Hits the biceps harder.","Back · Biceps"],
+ ["Narrow Pull-Up / Chin-Up","The same movements with your hands close together.","Back · Arms"],
+ ["Commando Pull-Up","Stand under the bar, grip it end-to-end like a bat. Pull up touching one shoulder to the bar; alternate sides each rep.","Back · Core"],
+ ["Squat","Feet shoulder-width, toes slightly out. Sit back until thighs are parallel, drive up through your heels. Knees behind toes.","Legs · Glutes"],
+ ["Air Squat","A bodyweight squat done at a continuous, faster pace.","Legs · Cardio"],
+ ["Squat w/ Med Ball","Hold a medicine ball at your chest through the full squat for load.","Legs · Core"],
+ ["Lunge","Step forward, lower your back knee toward the floor, push back to standing. Reps per leg.","Legs · Glutes"],
+ ["Lunge w/ Twist","Lunge, then rotate your torso over the front leg before standing.","Legs · Core"],
+ ["Push-Up","Hands shoulder-width, body straight, lower your chest to ~2 in off the floor and press up. Core tight.","Chest · Triceps"],
+ ["Narrow Push-Up","Hands 6–10 in apart — shifts load to the triceps.","Triceps · Chest"],
+ ["Diamond Push-Up","Thumbs and index fingers touching to form a diamond under your chest. Max triceps.","Triceps"],
+ ["T Push-Up","Push-up, then rotate into a side plank with your top arm pointing straight up so your body forms a T. Alternate sides.","Chest · Core"],
+ ["Plank / Forearm Plank","Top-of-push-up (or on forearms), body flat and rigid, hips level. Hold for the listed time.","Core"],
+ ["V-Sit","Balance on your seat and lift your legs and torso so your body makes a V.","Core"],
+ ["In & Out","Sit balanced, pull your knees to your chest, then extend your legs straight out without touching the floor.","Core"],
+ ["Mason Twist","Sit leaned back, feet up, rotate your torso side to side and tap the floor each side.","Obliques"],
+ ["Superman","Lie face down, lift your arms and legs off the floor and squeeze.","Lower back"],
+ ["Hanging Leg Raise","Hang from the bar and raise your legs or knees toward your chest, lowering slowly.","Core · Grip"],
+ ["Mountain Climber","Push-up position, drive your knees to your chest one at a time, fast. Count is total reps.","Core · Cardio"],
+ ["Wood Chop","Diagonal chop across your body — high on one side down to low on the other. Ball for load.","Core · Obliques"],
+ ["Burpee","Squat, kick your feet back, push-up, jump your feet in, explode into a jump. That's 1 rep.","Full body"]
+];
+const MOVES_KB = [
+ ["Kettlebell Swing","Hinge at the hips and snap them forward to float the bell to chest height — a hip drive, not a squat or an arm raise. Flat back, glutes tight at the top.","Hinge · Power · Grip"],
+ ["Goblet Squat","Hold the bell at your chest with both hands and squat deep, elbows inside your knees, chest tall.","Legs · Core"],
+ ["Reverse Lunge","Holding the bell, step back and drop your rear knee toward the floor, then drive up. Per side.","Legs · Balance"],
+ ["Cossack Squat","Feet wide, shift over one bent leg while the other stays straight, then sink low. Big for hips. Per side.","Legs · Mobility"],
+ ["KB Sumo Jump Squat","Wide stance, bell hanging between your legs. Squat, then jump explosively; land soft.","Legs · Power"],
+ ["Single-Arm Clean & Press","Clean the bell from between your legs to the rack, then press it overhead. Lower under control. Per side.","Push · Full body"],
+ ["Bent-Over Row","Hinge forward, flat back, row the bell to your hip, squeeze the upper back. Per side.","Pull · Upper back"],
+ ["KB Thruster","A goblet front squat straight into an overhead press in one motion — drive out of the bottom to launch the press.","Full body"],
+ ["Russian Twist","Sit balanced with feet up, hold the bell and rotate side to side, tapping near the floor. Per side.","Core · Obliques"]
+];
+
+/* ---------- Storage ---------- */
+let store = {}; let hasLS = false;
+try { localStorage.setItem('mb_t','1'); localStorage.removeItem('mb_t'); hasLS = true; } catch(e){ hasLS=false; }
+function load(){ if(!hasLS) return; for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i); if(k.startsWith('mb:')) store[k]=localStorage.getItem(k);} }
+function setKey(k,v){ store[k]=v?'1':''; if(hasLS){ try{ v?localStorage.setItem(k,'1'):localStorage.removeItem(k);}catch(e){} } }
+function getKey(k){ return store[k]==='1'; }
+function setNum(k,n){ store[k]=String(n); if(hasLS){ try{ localStorage.setItem(k,String(n)); }catch(e){} } }
+function getNum(k){ const v=store[k]; return v?parseInt(v,10)||0:0; }
+load();
+
+let viewDate = new Date(); viewDate.setHours(0,0,0,0);
+
+/* ---------- Date helpers ---------- */
+function ymd(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function info(d){
+  const diff = Math.round((d - START)/86400000);
+  if(diff < 0) return {status:'before', diff};
+  const week = Math.floor(diff/7), dow = diff - week*7;
+  if(week > 6) return {status:'after', diff};
+  return {status:'in', week:week+1, dow, plan:DAYS[dow]||null};
+}
+function isToday(d){ const t=new Date(); t.setHours(0,0,0,0); return d.getTime()===t.getTime(); }
+function fmtEx(ex){ const m=ex.match(/^(\S+)\s+(.*)$/); if(m && /[\d:]/.test(m[1])) return `<span class="num">${m[1]}</span> ${m[2]}`; return ex; }
+
+/* ---------- Render Today ---------- */
+function renderToday(){
+  const inf = info(viewDate);
+  document.getElementById('dLine1').textContent = DOW[viewDate.getDay()]+' · '+MON[viewDate.getMonth()]+' '+viewDate.getDate();
+  document.getElementById('dLine2').textContent = ymd(viewDate);
+  document.getElementById('jumpToday').classList.toggle('hidden', isToday(viewDate));
+  const meta = document.getElementById('metaStrip');
+  const area = document.getElementById('workoutArea'); area.innerHTML='';
+
+  if(inf.status==='before'){
+    meta.classList.add('hidden'); const days=-inf.diff;
+    area.innerHTML=`<div class="restcard"><div class="big2">Stand By</div><div class="sub">Starts Mon, Jul 20, 2026 — ${days} day${days!==1?'s':''} out.<br>Take your "before" photo. Run the Power 4 test.</div></div>`;
+    buildTally(); return;
+  }
+  if(inf.status==='after'){
+    meta.classList.add('hidden');
+    area.innerHTML=`<div class="restcard"><div class="big2">Complete</div><div class="sub">7 weeks done. Re-test your Power 4 and compare.<br>Then remix the moves into your own weeks.</div></div>`;
+    buildTally(); return;
+  }
+
+  meta.classList.remove('hidden');
+  document.getElementById('mWeek').textContent = inf.week;
+  document.getElementById('mLevel').textContent = inf.week<=3 ? 'I' : 'II';
+  const dayCell=document.getElementById('mDay');
+  const p=inf.plan;
+  if(!p){ dayCell.textContent='REST'; dayCell.className='v';
+    area.innerHTML=`<div class="restcard"><div class="big2">Rest</div><div class="sub">Recovery is the program working. Eat clean, hydrate, move easy.</div></div>`;
+    buildTally(); return;
+  }
+  const dk = ymd(viewDate);
+
+  if(p.t==='bw'){
+    dayCell.textContent=p.k.toUpperCase(); dayCell.className='v';
+    const day=WEEKS[inf.week][p.k];
+    day.sets.forEach((set,si)=>{
+      const card=document.createElement('div'); card.className='set';
+      let rows='';
+      set.forEach((ex,ii)=>{ const key=`mb:${dk}:s${si}:i${ii}`; rows+=`<div class="row ${getKey(key)?'done':''}" data-key="${key}"><div class="box"></div><div class="exname">${fmtEx(ex)}</div></div>`; });
+      card.innerHTML=`<div class="set-hd"><div class="lbl">Set <b>${String(si+1).padStart(2,'0')}</b></div><div class="cnt">${set.length} moves</div></div>${rows}<div class="stamp">Logged</div>`;
+      area.appendChild(card);
+    });
+    const ckey=`mb:${dk}:cardio`;
+    const cd=document.createElement('div'); cd.className='cardio '+(getKey(ckey)?'done':''); cd.dataset.key=ckey;
+    cd.innerHTML=`<div class="box"></div><div class="ic">🔥</div><div><div class="t1">Cardio</div><div class="t2">${day.cardio}</div></div>`;
+    area.appendChild(cd);
+    refreshStamps();
+  } else {
+    dayCell.textContent='KB'; dayCell.className='v kb';
+    const flow=KB[p.f]; const mins=kbMinutes(inf.week);
+    const dkey=`mb:${dk}:kbdone`; const rkey=`mb:${dk}:rounds`;
+    let lis=''; flow.moves.forEach(m=>{ lis+=`<li>${fmtEx(m)}</li>`; });
+    const card=document.createElement('div'); card.className='kbcard';
+    card.innerHTML=`
+      <div class="kb-hd"><div class="l1">Kettlebell · <b>${mins}-min AMRAP</b></div><div class="l2">${flow.title} — as many rounds as possible</div></div>
+      <div class="kb-cue">${flow.cue}</div>
+      <ol class="circuit">${lis}</ol>
+      <div class="stepper"><span class="lab">Rounds done</span><button id="kbMinus">–</button><span class="val" id="kbVal">${getNum(rkey)}</span><button id="kbPlus">+</button></div>
+      <div class="kblog ${getKey(dkey)?'done':''}" data-key="${dkey}"><div class="box"></div><div class="t1">Log session complete</div></div>
+      <details class="kbmore"><summary>Weight guide</summary><div class="inner">${WEIGHT_GUIDE}</div></details>
+      <details class="kbmore"><summary>Scaling</summary><div class="inner">${SCALING}</div></details>`;
+    area.appendChild(card);
+    document.getElementById('kbMinus').onclick=()=>{ const n=Math.max(0,getNum(rkey)-1); setNum(rkey,n); document.getElementById('kbVal').textContent=n; };
+    document.getElementById('kbPlus').onclick=()=>{ const n=getNum(rkey)+1; setNum(rkey,n); document.getElementById('kbVal').textContent=n; };
+  }
+  buildTally();
+}
+
+function refreshStamps(){
+  document.querySelectorAll('#workoutArea .set').forEach(card=>{
+    const rows=card.querySelectorAll('.row');
+    card.classList.toggle('complete', rows.length>0 && [...rows].every(r=>r.classList.contains('done')));
+  });
+}
+
+/* ---------- Progress tally (35 sessions) ---------- */
+function sessionDates(){ const list=[]; for(let w=1;w<=7;w++){ for(const off of OFFSETS){ const d=new Date(START); d.setDate(START.getDate()+(w-1)*7+off); list.push(d);} } return list; }
+function dayComplete(d){
+  const inf=info(d); if(inf.status!=='in'||!inf.plan) return false;
+  const dk=ymd(d); const p=inf.plan;
+  if(p.t==='kb') return getKey(`mb:${dk}:kbdone`);
+  const day=WEEKS[inf.week][p.k];
+  for(let si=0;si<day.sets.length;si++) for(let ii=0;ii<day.sets[si].length;ii++) if(!getKey(`mb:${dk}:s${si}:i${ii}`)) return false;
+  return getKey(`mb:${dk}:cardio`);
+}
+function buildTally(){
+  const el=document.getElementById('tally'); el.innerHTML='';
+  const dates=sessionDates(); let done=0;
+  const today=new Date(); today.setHours(0,0,0,0);
+  dates.forEach((d,i)=>{
+    const c=document.createElement('div'); c.className='cell';
+    const p=info(d).plan;
+    if(dayComplete(d)){ c.className='cell '+(p.t==='kb'?'kbon':'bwon'); c.textContent='✓'; done++; }
+    else { c.textContent=(p.t==='kb'?'K':'B'); if(d.getTime()===today.getTime()) c.classList.add('now'); }
+    el.appendChild(c);
+  });
+  document.getElementById('tallyCount').textContent = done+' / 35';
+}
+
+/* ---------- Interactions ---------- */
+document.getElementById('workoutArea').addEventListener('click',e=>{
+  const t=e.target.closest('.row')||e.target.closest('.cardio')||e.target.closest('.kblog');
+  if(!t) return;
+  const key=t.dataset.key; const now=!getKey(key);
+  setKey(key, now); t.classList.toggle('done', now);
+  refreshStamps(); buildTally();
+});
+document.getElementById('prevDay').onclick=()=>{ viewDate.setDate(viewDate.getDate()-1); renderToday(); };
+document.getElementById('nextDay').onclick=()=>{ viewDate.setDate(viewDate.getDate()+1); renderToday(); };
+document.getElementById('jumpToday').onclick=()=>{ viewDate=new Date(); viewDate.setHours(0,0,0,0); renderToday(); };
+document.getElementById('resetBtn').onclick=()=>{
+  if(confirm('Clear every check-off, round count and log, and start over?')){
+    Object.keys(store).forEach(k=>{ if(k.startsWith('mb:')){ store[k]=''; if(hasLS){try{localStorage.removeItem(k);}catch(e){}} } });
+    renderToday();
+  }
+};
+
+/* ---------- Plan ---------- */
+function renderPlan(){
+  const list=document.getElementById('planList'); list.innerHTML='';
+  const cur=info(new Date(new Date().setHours(0,0,0,0)));
+  for(let w=1;w<=7;w++){
+    const isCur=cur.status==='in'&&cur.week===w;
+    const wk=document.createElement('div'); wk.className='wk'+(isCur?' open':'');
+    let body='';
+    // bodyweight days
+    const bwmap={mon:'Set A',wed:'Set B',fri:'Set C'};
+    ['mon','wed','fri'].forEach(dk=>{
+      const day=WEEKS[w][dk]; let lines='';
+      day.sets.forEach((s,i)=>{ lines+=`<div class="setline"><b>S${i+1}</b> &nbsp;${s.map(fmtEx).join(' · ')}</div>`; });
+      body+=`<div class="day"><div class="dh">${dk}<span>bodyweight · ${bwmap[dk]}</span></div>${lines}<div class="cline">🔥 ${day.cardio}</div></div>`;
+    });
+    // kettlebell days
+    const mins=kbMinutes(w);
+    [['tue','A'],['sat','B']].forEach(([lbl,f])=>{
+      const flow=KB[f]; let lines='';
+      flow.moves.forEach(m=>{ lines+=`<div class="kbline">• ${fmtEx(m)}</div>`; });
+      body+=`<div class="day kbday"><div class="dh">${lbl}<span>kettlebell · ${mins}-min AMRAP</span></div>${lines}</div>`;
+    });
+    wk.innerHTML=`<div class="wk-hd"><div class="n">Wk ${w}</div><div class="lv">Level ${w<=3?'I':'II'}</div>${isCur?'<div class="cur">NOW</div>':''}<div class="arw">›</div></div><div class="wk-body">${body}</div>`;
+    wk.querySelector('.wk-hd').onclick=()=>wk.classList.toggle('open');
+    list.appendChild(wk);
+  }
+}
+
+/* ---------- Moves ---------- */
+function renderMoves(){
+  const bw=document.getElementById('moveListBW'); const kb=document.getElementById('moveListKB');
+  bw.innerHTML=''; kb.innerHTML='';
+  MOVES_BW.forEach(m=>{ const d=document.createElement('div'); d.className='move'; d.innerHTML=`<h3>${m[0]}</h3><p>${m[1]}</p><div class="tags">${m[2]}</div>`; bw.appendChild(d); });
+  MOVES_KB.forEach(m=>{ const d=document.createElement('div'); d.className='move'; d.innerHTML=`<h3>${m[0]}</h3><p>${m[1]}</p><div class="tags">${m[2]}</div>`; kb.appendChild(d); });
+}
+
+/* ---------- Nav ---------- */
+const views={today:'view-today',plan:'view-plan',moves:'view-moves',test:'view-test'};
+document.querySelectorAll('nav button').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active')); b.classList.add('active');
+    Object.values(views).forEach(v=>document.getElementById(v).classList.add('hidden'));
+    document.getElementById(views[b.dataset.view]).classList.remove('hidden');
+    window.scrollTo(0,0);
+    if(b.dataset.view==='plan') renderPlan();
+    if(b.dataset.view==='moves') renderMoves();
+  };
+});
+
+if(!hasLS){ document.getElementById('footNote').textContent='Heads up: this browser isn\'t saving check-offs between reloads. Hosting the file (GitHub Pages) fixes that.'; }
+renderToday();
+</script>
+</body>
+</html>
