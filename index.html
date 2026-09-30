@@ -15,7 +15,7 @@
   :root{
     --bg:#14161a; --panel:#1b1e25; --panel2:#22262f; --line:#2f3743;
     --ink:#e9e5d9; --dim:#8a8f99; --faint:#5b6068;
-    --blaze:#ff5a1f; --blaze-deep:#c2400e; --olive:#88a457; --steel:#5f86b0;
+    --blaze:#ff5a1f; --blaze-deep:#c2400e; --olive:#88a457; --run:#37a3a0;
     --display:'Oswald','Arial Narrow','Impact',sans-serif;
     --mono:'Space Mono','SFMono-Regular',ui-monospace,Menlo,monospace;
     --ui:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,system-ui,sans-serif;
@@ -51,8 +51,7 @@
   .chip{flex:1; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:9px 10px; text-align:center}
   .chip .k{font-family:var(--mono); font-size:9px; letter-spacing:1px; color:var(--faint); text-transform:uppercase}
   .chip .v{font-family:var(--display); font-weight:600; font-size:18px; text-transform:uppercase; letter-spacing:1px; margin-top:1px}
-  .chip .v.accent{color:var(--blaze)}
-  .chip .v.kb{color:var(--steel)}
+  .chip .v.accent{color:var(--blaze)} .chip .v.run{color:var(--run)}
 
   .set{background:var(--panel); border:1px solid var(--line); border-radius:14px; margin:14px 0; overflow:hidden; position:relative}
   .set-hd{display:flex; align-items:center; gap:8px; padding:12px 14px 10px; border-bottom:1px solid var(--line)}
@@ -80,29 +79,30 @@
   .cardio .t2{font-family:var(--mono); font-size:11px; color:var(--dim)}
   .cardio.done .box{border-color:var(--olive)} .cardio.done .box::after{transform:scale(1)}
 
-  /* Kettlebell card */
-  .kbcard{background:var(--panel); border:1px solid var(--line); border-radius:14px; margin:14px 0; overflow:hidden}
-  .kb-hd{padding:14px 14px 10px; border-bottom:1px solid var(--line)}
-  .kb-hd .l1{font-family:var(--display); font-weight:700; text-transform:uppercase; letter-spacing:2px; font-size:16px}
-  .kb-hd .l1 b{color:var(--steel)}
-  .kb-hd .l2{font-family:var(--mono); font-size:11px; color:var(--dim); margin-top:3px}
-  .kb-cue{padding:11px 14px; font-size:12.5px; color:var(--dim); border-bottom:1px solid #232833; font-style:italic}
-  ol.circuit{list-style:none; counter-reset:c; margin:0; padding:6px 14px 8px}
-  ol.circuit li{counter-increment:c; display:flex; gap:12px; padding:8px 0; font-family:var(--mono); font-size:14.5px; align-items:baseline}
-  ol.circuit li::before{content:counter(c); font-family:var(--display); font-weight:700; color:var(--steel); font-size:15px; min-width:16px}
+  .runcard{background:var(--panel); border:1px solid var(--line); border-radius:14px; margin:14px 0; overflow:hidden}
+  .run-hd{padding:14px 14px 10px; border-bottom:1px solid var(--line)}
+  .run-hd .l1{font-family:var(--display); font-weight:700; text-transform:uppercase; letter-spacing:2px; font-size:16px}
+  .run-hd .l1 b{color:var(--run)}
+  .run-hd .l2{font-family:var(--mono); font-size:11px; color:var(--dim); margin-top:3px}
+  .run-cue{padding:11px 14px; font-size:12.5px; color:var(--dim); border-bottom:1px solid #232833; font-style:italic}
+  .run-blk{padding:10px 14px; font-family:var(--mono); font-size:13px; color:var(--dim); border-bottom:1px solid #232833}
+  .run-blk .rl{font-family:var(--display); text-transform:uppercase; letter-spacing:2px; font-size:11px; color:var(--run); display:block; margin-bottom:2px}
+  ol.circuit{list-style:none; counter-reset:c; margin:0; padding:10px 14px}
+  ol.circuit li{counter-increment:c; display:flex; gap:12px; padding:6px 0; font-family:var(--mono); font-size:14.5px; align-items:baseline}
+  ol.circuit li::before{content:counter(c); font-family:var(--display); font-weight:700; color:var(--run); font-size:15px; min-width:16px}
   ol.circuit li .num{color:var(--blaze); font-weight:700}
-  .stepper{display:flex; align-items:center; gap:10px; padding:10px 14px; border-top:1px solid #232833}
-  .stepper .lab{font-family:var(--display); text-transform:uppercase; letter-spacing:2px; font-size:13px; color:var(--dim); flex:1}
-  .stepper button{width:38px; height:38px; border:1px solid var(--line); background:var(--panel2); color:var(--ink); font-size:20px; border-radius:9px; cursor:pointer}
-  .stepper .val{font-family:var(--mono); font-weight:700; font-size:20px; min-width:34px; text-align:center; color:var(--steel)}
-  .kblog{display:flex; align-items:center; gap:14px; padding:14px; border-top:1px solid #232833; cursor:pointer}
-  .kblog .t1{font-family:var(--display); text-transform:uppercase; letter-spacing:2px; font-weight:600; font-size:15px}
-  .kblog.done .box{border-color:var(--olive)} .kblog.done .box::after{transform:scale(1)}
-  .kblog.done .t1{color:var(--olive)}
+  .runin{padding:0 14px 12px}
+  .runin input{width:100%; background:var(--panel2); border:1px solid var(--line); border-radius:9px; color:var(--ink);
+    font-family:var(--mono); font-size:14px; padding:11px 12px}
+  .runin input::placeholder{color:var(--faint)}
+  .runlog{display:flex; align-items:center; gap:14px; padding:14px; border-top:1px solid #232833; cursor:pointer}
+  .runlog .t1{font-family:var(--display); text-transform:uppercase; letter-spacing:2px; font-weight:600; font-size:15px}
+  .runlog.done .box{border-color:var(--olive)} .runlog.done .box::after{transform:scale(1)}
+  .runlog.done .t1{color:var(--olive)}
   details.kbmore{border-top:1px solid #232833}
   details.kbmore summary{padding:12px 14px; font-family:var(--display); text-transform:uppercase; letter-spacing:2px; font-size:13px; color:var(--dim); cursor:pointer; list-style:none}
   details.kbmore summary::-webkit-details-marker{display:none}
-  details.kbmore summary::before{content:"+ "; color:var(--steel)}
+  details.kbmore summary::before{content:"+ "; color:var(--run)}
   details.kbmore[open] summary::before{content:"– "}
   details.kbmore .inner{padding:0 14px 14px; font-family:var(--mono); font-size:12.5px; color:var(--dim); line-height:1.7}
   details.kbmore .inner b{color:var(--ink)}
@@ -116,7 +116,7 @@
   .cell{aspect-ratio:1; border:1px solid var(--line); border-radius:5px; background:var(--panel);
     display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:9px; color:var(--faint)}
   .cell.bwon{background:var(--blaze); border-color:var(--blaze); color:#1a1205; font-weight:700}
-  .cell.kbon{background:var(--steel); border-color:var(--steel); color:#08111a; font-weight:700}
+  .cell.runon{background:var(--run); border-color:var(--run); color:#05201f; font-weight:700}
   .cell.now{border-color:var(--blaze); color:var(--blaze)}
   .tally-lbl{display:flex; justify-content:space-between; font-family:var(--mono); font-size:11px; color:var(--dim)}
   .legend{display:flex; gap:14px; justify-content:center; margin-top:8px; font-family:var(--mono); font-size:10px; color:var(--dim)}
@@ -135,22 +135,23 @@
   .day{border-top:1px solid var(--line); padding:12px 0}
   .day .dh{font-family:var(--display); text-transform:uppercase; letter-spacing:2px; font-size:13px; color:var(--ink); margin-bottom:6px}
   .day .dh span{color:var(--faint); font-family:var(--mono); font-size:10px; letter-spacing:.5px; margin-left:6px}
-  .day.kbday .dh{color:var(--steel)}
+  .day.runday .dh{color:var(--run)}
   .setline{font-family:var(--mono); font-size:12.5px; color:var(--dim); padding:3px 0; padding-left:14px; text-indent:-14px}
   .setline b{color:var(--ink); font-weight:700} .setline .num{color:var(--blaze)}
   .cline{font-family:var(--mono); font-size:12px; color:var(--olive); padding-top:5px}
-  .kbline{font-family:var(--mono); font-size:12.5px; color:var(--dim); padding:2px 0}
-  .kbline .num{color:var(--blaze)}
+  .runline{font-family:var(--mono); font-size:12.5px; color:var(--dim); padding:2px 0}
+  .runline .num{color:var(--blaze)}
 
   .move{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:13px 14px; margin:10px 0}
   .move h3{font-family:var(--display); font-weight:600; text-transform:uppercase; letter-spacing:1.5px; font-size:16px; margin:0 0 4px}
   .move p{margin:0; font-size:13.5px; color:var(--dim)}
   .move .tags{margin-top:6px; font-family:var(--mono); font-size:10px; color:var(--faint); letter-spacing:.5px}
-  .subhead{font-family:var(--display); text-transform:uppercase; letter-spacing:3px; font-size:13px; color:var(--steel); margin:20px 0 2px}
+  .subhead{font-family:var(--display); text-transform:uppercase; letter-spacing:3px; font-size:13px; color:var(--run); margin:20px 0 2px}
   .subhead.bw{color:var(--blaze)}
 
   .info{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:16px; margin:14px 0}
   .info h3{font-family:var(--display); text-transform:uppercase; letter-spacing:2px; font-size:16px; margin:0 0 8px; color:var(--blaze)}
+  .info h3.run{color:var(--run)}
   .info p{font-size:14px; color:var(--dim); margin:0 0 10px}
   table.lvl{width:100%; border-collapse:collapse; font-family:var(--mono); font-size:12px}
   table.lvl th,table.lvl td{border:1px solid var(--line); padding:7px 6px; text-align:center}
@@ -176,7 +177,7 @@
 <header>
   <div class="brand">
     <span class="mark"><em>ME</em>bones</span>
-    <span class="tag">BODYWEIGHT + KETTLEBELL</span>
+    <span class="tag">LEVEL II · 2-MILE</span>
   </div>
 </header>
 
@@ -192,7 +193,7 @@
 
     <div class="meta" id="metaStrip">
       <div class="chip"><div class="k">Week</div><div class="v accent" id="mWeek">–</div></div>
-      <div class="chip"><div class="k">Block</div><div class="v" id="mLevel">–</div></div>
+      <div class="chip"><div class="k">Phase</div><div class="v" id="mLevel">–</div></div>
       <div class="chip"><div class="k">Day</div><div class="v" id="mDay">–</div></div>
     </div>
 
@@ -201,7 +202,7 @@
     <div class="tally-wrap">
       <div class="tally-lbl"><span>Sessions logged</span><span id="tallyCount">0 / 35</span></div>
       <div class="tally" id="tally"></div>
-      <div class="legend"><span><i style="background:var(--blaze)"></i>Bodyweight</span><span><i style="background:var(--steel)"></i>Kettlebell</span></div>
+      <div class="legend"><span><i style="background:var(--blaze)"></i>Bodyweight</span><span><i style="background:var(--run)"></i>Run</span></div>
     </div>
   </section>
 
@@ -210,7 +211,7 @@
     <div class="kicker">The Program</div>
     <h1 class="big">7-Week Plan</h1>
     <div id="planList"></div>
-    <p class="foot">Mon / Wed / Fri — bodyweight · Tue &amp; Sat — kettlebell · rest Thu &amp; Sun.<br>Weeks 1–3 = Level I · Weeks 4–7 = Level II.<br>Rest 2 min between bodyweight sets. Warm up before, stretch after.</p>
+    <p class="foot">Mon / Wed / Fri — bodyweight · Tue &amp; Sat — run · rest Thu &amp; Sun.<br>All Level II — Build (Wk 1–3) → Peak (Wk 4–7), picking up where the last block topped out.<br>2-mile time trials bookend the block: Wk 1 Sat &amp; Wk 7 Sat.</p>
   </section>
 
   <!-- MOVES -->
@@ -219,42 +220,62 @@
     <h1 class="big">The Moves</h1>
     <div class="subhead bw">Bodyweight</div>
     <div id="moveListBW"></div>
-    <div class="subhead">Kettlebell</div>
-    <div id="moveListKB"></div>
+    <div class="subhead">Running</div>
+    <div id="moveListRun"></div>
     <div class="info">
-      <h3>Cardio &amp; Games</h3>
-      <p>End each bodyweight day with your prescribed cardio — anything that spikes your heart rate counts.</p>
-      <p style="margin:0;color:var(--ink);font-family:var(--mono);font-size:12.5px">Sprints · jump rope · shadow boxing · med-ball tosses · stair / hill repeats · ruck · bag work · a sport.</p>
+      <h3 class="run">Effort Guide</h3>
+      <p style="margin:0;color:var(--ink);font-family:var(--mono);font-size:12.5px;line-height:1.8">
+        <b style="color:var(--ink)">Easy</b> — full sentences, nose-breathing (zone 2)<br>
+        <b style="color:var(--ink)">Tempo</b> — comfortably hard, a few words at a time<br>
+        <b style="color:var(--ink)">Hard</b> — ~5K effort, breathing heavy but controlled<br>
+        <b style="color:var(--ink)">Strides</b> — 15–20 sec smooth &amp; fast, full recovery</p>
+    </div>
+    <div class="info">
+      <h3 class="run">Sidewalk Tips</h3>
+      <p style="margin:0;color:var(--dim);font-family:var(--mono);font-size:12.5px;line-height:1.8">
+        No track needed — mark intervals by mailboxes, poles, driveways or blocks. The clock keeps running through crossings; it's effort and time, not perfect distance. Face traffic where there's no sidewalk, and wear reflective gear or a headlamp in the dark. For time trials, a phone app (Strava, Nike Run, Garmin) measures the 2 miles — or map a 1-mile out-and-back once and reuse it.</p>
+    </div>
+    <div class="info">
+      <h3>Bodyweight-Day Cardio</h3>
+      <p style="margin:0;color:var(--ink);font-family:var(--mono);font-size:12.5px">End each bodyweight day with its cardio line: sprints · jump rope · shadow boxing · stairs · ruck · bag work · a sport.</p>
     </div>
   </section>
 
   <!-- TEST -->
   <section id="view-test" class="hidden">
-    <div class="kicker">Find Your Level</div>
+    <div class="kicker">Benchmark</div>
     <h1 class="big">Power 4 Test</h1>
     <div class="info">
-      <p>Warm up, then do max reps of each with good form, resting 2 min between. Not pass/fail — it just sets your start line.</p>
+      <p>Warm up, then do max reps of each with good form, resting 2 min between. Re-test after the block to measure the jump.</p>
       <p style="color:var(--ink);font-family:var(--mono);font-size:12.5px;margin-bottom:0">1. Max Pull-Ups → 2. Max Squats → 3. Max Push-Ups → 4. Max Plank hold</p>
     </div>
     <div class="info">
-      <h3>Where you start</h3>
+      <h3>Level reference</h3>
       <table class="lvl">
         <tr><th></th><th>Pull</th><th>Push</th><th>Squat</th><th>Plank</th></tr>
         <tr><td class="lv">Prep</td><td>0–5</td><td>0–9</td><td>0–14</td><td>≤:30</td></tr>
         <tr><td class="lv">Level I</td><td>6–11</td><td>10–19</td><td>15–29</td><td>:30–:59</td></tr>
         <tr><td class="lv">Level II</td><td>12+</td><td>20+</td><td>30+</td><td>1:00+</td></tr>
       </table>
-      <p style="margin-top:10px">This app runs <b style="color:var(--ink)">Level I (Wk 1–3)</b> → <b style="color:var(--ink)">Level II (Wk 4–7)</b>. If Level I feels light, jump to <b style="color:var(--ink)">Week 4</b> with the day arrows on Today. Re-test after each block.</p>
+      <p style="margin-top:10px">This block runs <b style="color:var(--ink)">Level II the whole way</b> — it starts where your last block topped out. <b style="color:var(--ink)">Build</b> (Wk 1–3) rolls into <b style="color:var(--ink)">Peak</b> (Wk 4–7). If a week's numbers are too heavy, repeat it before advancing — form over reps, always.</p>
+    </div>
+    <div class="info">
+      <h3 class="run">The 2-Mile</h3>
+      <p style="margin:0;color:var(--ink);font-family:var(--mono);font-size:12.5px;line-height:1.8">
+        · <b style="color:var(--ink)">Wk 1 Sat</b> — baseline 2-mile time trial, all-out<br>
+        · <b style="color:var(--ink)">Tue</b> — intervals build 2-mile pace<br>
+        · <b style="color:var(--ink)">Sat</b> — easy base + tempo build the engine<br>
+        · <b style="color:var(--ink)">Wk 7 Sat</b> — final 2-mile, compare the gap<br>
+        · Log each run's time in the box on that day</p>
     </div>
     <div class="info">
       <h3>How it fits together</h3>
       <p style="margin:0;color:var(--ink);font-family:var(--mono);font-size:12.5px;line-height:1.7">
         · Mon / Wed / Fri — bodyweight strength<br>
-        · Tue / Sat — kettlebell conditioning<br>
+        · Tue / Sat — running<br>
         · Thu / Sun — full rest<br>
-        · Conditioning sits the day after strength on purpose — recover, don't stack hard days<br>
-        · Form over reps · Miss a day? Slide the week back, restart Monday<br>
-        · Take a "before" photo. You'll want it.</p>
+        · Runs sit the day after strength on purpose<br>
+        · Miss a day? Slide the week back, restart Monday</p>
     </div>
     <button class="btn warn" id="resetBtn">Reset all progress</button>
   </section>
@@ -271,51 +292,55 @@
 
 <script>
 /* ---------- Start date ---------- */
-const START = new Date(2026, 6, 20); // Mon Jul 20, 2026
+const START = new Date(2026, 9, 5); // Mon Oct 5, 2026
 START.setHours(0,0,0,0);
 const DOW = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-// day-of-week -> what happens. bw = bodyweight, kb = kettlebell flow A/B
-const DAYS = {0:{t:'bw',k:'mon'}, 1:{t:'kb',f:'A'}, 2:{t:'bw',k:'wed'}, 4:{t:'bw',k:'fri'}, 5:{t:'kb',f:'B'}};
-const OFFSETS = [0,1,2,4,5]; // Mon,Tue,Wed,Fri,Sat -> 5 sessions/week
+const DAYS = {0:{t:'bw',k:'mon'}, 1:{t:'run',s:'tue'}, 2:{t:'bw',k:'wed'}, 4:{t:'bw',k:'fri'}, 5:{t:'run',s:'sat'}};
+const OFFSETS = [0,1,2,4,5];
 
-/* ---------- Bodyweight data (Wk1 & Wk4 = book templates; others = progressive step-ups) ---------- */
+/* ---------- Bodyweight — advanced block. Wk1 picks up at the prior block's Wk5, climbing to a new peak. ---------- */
 const WEEKS = {
- 1:{mon:{sets:[["5 Chin-Ups","10 Squats","10 Push-Ups",":30 Plank"],["4 Pull-Ups","10 Lunges / leg","9 Narrow Push-Ups","5 V-Sits"],["5 Narrow Chin-Ups","10 Squats","7 Push-Ups","10 In & Outs"]],cardio:"10 min cardio / game"},
-    wed:{sets:[["6 Pull-Ups","12 Squats","10 Push-Ups",":35 Plank"],["5 Chin-Ups","10 Lunges / leg","7 Diamond Push-Ups","16 Supermans"],["5 Narrow Pull-Ups","12 Squats","10 Push-Ups","20 Mason Twists"]],cardio:"10 min cardio / game"},
-    fri:{sets:[["6 Chin-Ups","12 Squats","12 Push-Ups",":40 Plank"],["6 Pull-Ups","11 Lunges / leg","10 Narrow Push-Ups","7 Hanging Leg Raises"],["6 Narrow Chin-Ups","12 Squats","12 Push-Ups","10 In & Outs"]],cardio:"10 min cardio / game"}},
- 2:{mon:{sets:[["6 Chin-Ups","12 Squats","12 Push-Ups",":35 Plank"],["5 Pull-Ups","12 Lunges / leg","11 Narrow Push-Ups","7 V-Sits"],["6 Narrow Chin-Ups","12 Squats","9 Push-Ups","12 In & Outs"]],cardio:"10 min cardio / game"},
-    wed:{sets:[["7 Pull-Ups","14 Squats","12 Push-Ups",":40 Plank"],["6 Chin-Ups","12 Lunges / leg","9 Diamond Push-Ups","18 Supermans"],["6 Narrow Pull-Ups","14 Squats","12 Push-Ups","24 Mason Twists"]],cardio:"10 min cardio / game"},
-    fri:{sets:[["7 Chin-Ups","14 Squats","14 Push-Ups",":45 Plank"],["7 Pull-Ups","13 Lunges / leg","12 Narrow Push-Ups","9 Hanging Leg Raises"],["7 Narrow Chin-Ups","14 Squats","14 Push-Ups","12 In & Outs"]],cardio:"12 min cardio / game"}},
- 3:{mon:{sets:[["7 Chin-Ups","14 Squats","14 Push-Ups",":40 Plank"],["6 Pull-Ups","14 Lunges / leg","13 Narrow Push-Ups","9 V-Sits"],["7 Narrow Chin-Ups","14 Squats","11 Push-Ups","14 In & Outs"]],cardio:"12 min cardio / game"},
-    wed:{sets:[["8 Pull-Ups","16 Squats","14 Push-Ups",":45 Plank"],["7 Chin-Ups","14 Lunges / leg","11 Diamond Push-Ups","20 Supermans"],["7 Narrow Pull-Ups","16 Squats","14 Push-Ups","28 Mason Twists"]],cardio:"12 min cardio / game"},
-    fri:{sets:[["8 Chin-Ups","16 Squats","16 Push-Ups",":50 Plank"],["8 Pull-Ups","15 Lunges / leg","14 Narrow Push-Ups","11 Hanging Leg Raises"],["8 Narrow Chin-Ups","16 Squats","16 Push-Ups","14 In & Outs"]],cardio:"12 min cardio / game"}},
- 4:{mon:{sets:[["10 Pull-Ups","18 Squats","15 Push-Ups","1:00 Plank"],["11 Chin-Ups","13 Lunges / leg","14 Narrow Push-Ups","15 Hanging Leg Raises"],["10 Commando Pull-Ups","10 Squats","12 Diamond Push-Ups","22 Mountain Climbers"]],cardio:"15 min cardio / game"},
-    wed:{sets:[["12 Chin-Ups","10 Lunges w/ Twist / leg","8 T Push-Ups","14 Air Squats"],["1:00 Forearm Plank","26 Mountain Climbers","12 Push-Ups","10 Mountain Climbers","12 Supermans","1:00 Forearm Plank"],["10 Pull-Ups","18 Squats"]],cardio:"15 min cardio / game"},
-    fri:{sets:[["11 Pull-Ups","20 Squats w/ Med Ball","13 Diamond Push-Ups","18 Hanging Leg Raises"],["1:10 Plank","10 Burpees","18 Mountain Climbers","30 Wood Chops"],["15 Chin-Ups","16 Hanging Leg Raises","10 Lunges w/ Twist / leg","12 Narrow Push-Ups"]],cardio:"15 min cardio / game"}},
- 5:{mon:{sets:[["11 Pull-Ups","20 Squats","17 Push-Ups","1:10 Plank"],["12 Chin-Ups","15 Lunges / leg","16 Narrow Push-Ups","17 Hanging Leg Raises"],["11 Commando Pull-Ups","12 Squats","14 Diamond Push-Ups","26 Mountain Climbers"]],cardio:"15 min cardio / game"},
+ 1:{mon:{sets:[["11 Pull-Ups","20 Squats","17 Push-Ups","1:10 Plank"],["12 Chin-Ups","15 Lunges / leg","16 Narrow Push-Ups","17 Hanging Leg Raises"],["11 Commando Pull-Ups","12 Squats","14 Diamond Push-Ups","26 Mountain Climbers"]],cardio:"15 min cardio / game"},
     wed:{sets:[["13 Chin-Ups","12 Lunges w/ Twist / leg","10 T Push-Ups","16 Air Squats"],["1:10 Forearm Plank","30 Mountain Climbers","14 Push-Ups","12 Mountain Climbers","14 Supermans","1:10 Forearm Plank"],["12 Pull-Ups","20 Squats"]],cardio:"15 min cardio / game"},
     fri:{sets:[["12 Pull-Ups","22 Squats w/ Med Ball","15 Diamond Push-Ups","20 Hanging Leg Raises"],["1:20 Plank","12 Burpees","22 Mountain Climbers","34 Wood Chops"],["16 Chin-Ups","18 Hanging Leg Raises","12 Lunges w/ Twist / leg","14 Narrow Push-Ups"]],cardio:"15 min cardio / game"}},
- 6:{mon:{sets:[["12 Pull-Ups","22 Squats","19 Push-Ups","1:20 Plank"],["13 Chin-Ups","17 Lunges / leg","18 Narrow Push-Ups","19 Hanging Leg Raises"],["12 Commando Pull-Ups","14 Squats","16 Diamond Push-Ups","30 Mountain Climbers"]],cardio:"18 min cardio / game"},
-    wed:{sets:[["14 Chin-Ups","14 Lunges w/ Twist / leg","12 T Push-Ups","18 Air Squats"],["1:20 Forearm Plank","34 Mountain Climbers","16 Push-Ups","14 Mountain Climbers","16 Supermans","1:20 Forearm Plank"],["14 Pull-Ups","22 Squats"]],cardio:"18 min cardio / game"},
+ 2:{mon:{sets:[["12 Pull-Ups","22 Squats","19 Push-Ups","1:20 Plank"],["13 Chin-Ups","17 Lunges / leg","18 Narrow Push-Ups","19 Hanging Leg Raises"],["12 Commando Pull-Ups","14 Squats","16 Diamond Push-Ups","30 Mountain Climbers"]],cardio:"15 min cardio / game"},
+    wed:{sets:[["14 Chin-Ups","14 Lunges w/ Twist / leg","12 T Push-Ups","18 Air Squats"],["1:20 Forearm Plank","34 Mountain Climbers","16 Push-Ups","14 Mountain Climbers","16 Supermans","1:20 Forearm Plank"],["14 Pull-Ups","22 Squats"]],cardio:"15 min cardio / game"},
     fri:{sets:[["13 Pull-Ups","24 Squats w/ Med Ball","17 Diamond Push-Ups","22 Hanging Leg Raises"],["1:30 Plank","14 Burpees","26 Mountain Climbers","38 Wood Chops"],["18 Chin-Ups","20 Hanging Leg Raises","14 Lunges w/ Twist / leg","16 Narrow Push-Ups"]],cardio:"18 min cardio / game"}},
- 7:{mon:{sets:[["14 Pull-Ups","24 Squats","21 Push-Ups","1:30 Plank"],["14 Chin-Ups","19 Lunges / leg","20 Narrow Push-Ups","21 Hanging Leg Raises"],["14 Commando Pull-Ups","16 Squats","18 Diamond Push-Ups","34 Mountain Climbers"]],cardio:"20 min cardio / game"},
-    wed:{sets:[["16 Chin-Ups","16 Lunges w/ Twist / leg","14 T Push-Ups","20 Air Squats"],["1:30 Forearm Plank","38 Mountain Climbers","18 Push-Ups","16 Mountain Climbers","18 Supermans","1:30 Forearm Plank"],["16 Pull-Ups","24 Squats"]],cardio:"20 min cardio / game"},
-    fri:{sets:[["15 Pull-Ups","26 Squats w/ Med Ball","19 Diamond Push-Ups","24 Hanging Leg Raises"],["1:45 Plank","16 Burpees","30 Mountain Climbers","42 Wood Chops"],["20 Chin-Ups","22 Hanging Leg Raises","16 Lunges w/ Twist / leg","18 Narrow Push-Ups"]],cardio:"20 min cardio / game"}}
+ 3:{mon:{sets:[["14 Pull-Ups","24 Squats","21 Push-Ups","1:30 Plank"],["14 Chin-Ups","19 Lunges / leg","20 Narrow Push-Ups","21 Hanging Leg Raises"],["14 Commando Pull-Ups","16 Squats","18 Diamond Push-Ups","34 Mountain Climbers"]],cardio:"18 min cardio / game"},
+    wed:{sets:[["16 Chin-Ups","16 Lunges w/ Twist / leg","14 T Push-Ups","20 Air Squats"],["1:30 Forearm Plank","38 Mountain Climbers","18 Push-Ups","16 Mountain Climbers","18 Supermans","1:30 Forearm Plank"],["16 Pull-Ups","24 Squats"]],cardio:"18 min cardio / game"},
+    fri:{sets:[["15 Pull-Ups","26 Squats w/ Med Ball","19 Diamond Push-Ups","24 Hanging Leg Raises"],["1:45 Plank","16 Burpees","30 Mountain Climbers","42 Wood Chops"],["20 Chin-Ups","22 Hanging Leg Raises","16 Lunges w/ Twist / leg","18 Narrow Push-Ups"]],cardio:"20 min cardio / game"}},
+ 4:{mon:{sets:[["15 Pull-Ups","26 Squats","23 Push-Ups","1:35 Plank"],["15 Chin-Ups","20 Lunges / leg","22 Narrow Push-Ups","23 Hanging Leg Raises"],["15 Commando Pull-Ups","18 Squats","20 Diamond Push-Ups","36 Mountain Climbers"]],cardio:"20 min cardio / game"},
+    wed:{sets:[["17 Chin-Ups","17 Lunges w/ Twist / leg","15 T Push-Ups","22 Air Squats"],["1:35 Forearm Plank","40 Mountain Climbers","20 Push-Ups","18 Mountain Climbers","20 Supermans","1:35 Forearm Plank"],["17 Pull-Ups","26 Squats"]],cardio:"20 min cardio / game"},
+    fri:{sets:[["16 Pull-Ups","28 Squats w/ Med Ball","21 Diamond Push-Ups","26 Hanging Leg Raises"],["1:50 Plank","18 Burpees","32 Mountain Climbers","44 Wood Chops"],["22 Chin-Ups","24 Hanging Leg Raises","18 Lunges w/ Twist / leg","20 Narrow Push-Ups"]],cardio:"20 min cardio / game"}},
+ 5:{mon:{sets:[["16 Pull-Ups","28 Squats","25 Push-Ups","1:45 Plank"],["16 Chin-Ups","22 Lunges / leg","24 Narrow Push-Ups","25 Hanging Leg Raises"],["16 Commando Pull-Ups","20 Squats","22 Diamond Push-Ups","38 Mountain Climbers"]],cardio:"20 min cardio / game"},
+    wed:{sets:[["18 Chin-Ups","18 Lunges w/ Twist / leg","16 T Push-Ups","24 Air Squats"],["1:45 Forearm Plank","42 Mountain Climbers","22 Push-Ups","20 Mountain Climbers","22 Supermans","1:45 Forearm Plank"],["18 Pull-Ups","28 Squats"]],cardio:"20 min cardio / game"},
+    fri:{sets:[["17 Pull-Ups","30 Squats w/ Med Ball","23 Diamond Push-Ups","28 Hanging Leg Raises"],["2:00 Plank","20 Burpees","34 Mountain Climbers","46 Wood Chops"],["24 Chin-Ups","26 Hanging Leg Raises","20 Lunges w/ Twist / leg","22 Narrow Push-Ups"]],cardio:"20 min cardio / game"}},
+ 6:{mon:{sets:[["17 Pull-Ups","30 Squats","27 Push-Ups","1:55 Plank"],["17 Chin-Ups","24 Lunges / leg","26 Narrow Push-Ups","27 Hanging Leg Raises"],["17 Commando Pull-Ups","22 Squats","24 Diamond Push-Ups","40 Mountain Climbers"]],cardio:"20 min cardio / game"},
+    wed:{sets:[["19 Chin-Ups","19 Lunges w/ Twist / leg","17 T Push-Ups","26 Air Squats"],["1:55 Forearm Plank","44 Mountain Climbers","24 Push-Ups","22 Mountain Climbers","24 Supermans","1:55 Forearm Plank"],["19 Pull-Ups","30 Squats"]],cardio:"20 min cardio / game"},
+    fri:{sets:[["18 Pull-Ups","32 Squats w/ Med Ball","25 Diamond Push-Ups","30 Hanging Leg Raises"],["2:10 Plank","22 Burpees","36 Mountain Climbers","48 Wood Chops"],["26 Chin-Ups","28 Hanging Leg Raises","22 Lunges w/ Twist / leg","24 Narrow Push-Ups"]],cardio:"20 min cardio / game"}},
+ 7:{mon:{sets:[["18 Pull-Ups","32 Squats","29 Push-Ups","2:05 Plank"],["18 Chin-Ups","26 Lunges / leg","28 Narrow Push-Ups","29 Hanging Leg Raises"],["18 Commando Pull-Ups","24 Squats","26 Diamond Push-Ups","42 Mountain Climbers"]],cardio:"20 min cardio / game"},
+    wed:{sets:[["20 Chin-Ups","20 Lunges w/ Twist / leg","18 T Push-Ups","28 Air Squats"],["2:05 Forearm Plank","46 Mountain Climbers","26 Push-Ups","24 Mountain Climbers","26 Supermans","2:05 Forearm Plank"],["20 Pull-Ups","32 Squats"]],cardio:"20 min cardio / game"},
+    fri:{sets:[["19 Pull-Ups","34 Squats w/ Med Ball","27 Diamond Push-Ups","32 Hanging Leg Raises"],["2:20 Plank","24 Burpees","38 Mountain Climbers","50 Wood Chops"],["28 Chin-Ups","30 Hanging Leg Raises","24 Lunges w/ Twist / leg","26 Narrow Push-Ups"]],cardio:"20 min cardio / game"}}
 };
 
-/* ---------- Kettlebell flows (AMRAP) ---------- */
-const KB = {
- A:{title:'Lower / Posterior AMRAP',
-    cue:'Never set the bell down through the first four moves — grip, core and upper back stay under load the whole time.',
-    moves:["10 Kettlebell Swings","10 Goblet Squats","10 Reverse Lunges (5 / side)","10 Cossack Squats (5 / side)","10 KB Sumo Jump Squats"]},
- B:{title:'Push / Pull AMRAP',
-    cue:'Balances the squat-heavy day — presses and pulls to hit your upper body.',
-    moves:["10 Kettlebell Swings","8 Single-Arm Clean & Press (4 / side)","10 Bent-Over Rows (5 / side)","10 KB Thrusters","10 Russian Twists (5 / side)"]}
+/* ---------- Running data — Tue = speed, Sat = base/TT. Built around the Army 2-mile. ---------- */
+const RUNS = {
+ 1:{tue:{title:'Intervals',est:'~28 min',warm:'5–10 min easy jog + leg swings, ankle circles',main:['6 × 1 min HARD','90 sec easy jog or walk between'],cool:'5 min easy jog, then stretch',note:'Hard ≈ 5K race effort — heavy breathing, still controlled. Mark reps off poles or mailboxes.'},
+    sat:{title:'Baseline 2-Mile Time Trial',est:'~25 min',warm:'10 min easy jog + 3 short strides',main:['Run 2 miles as fast as you can hold','Even effort — bank nothing, fade nothing'],cool:'5–10 min easy walk',note:'Your starting number. Log the time — you\'ll chase it for 7 weeks.'}},
+ 2:{tue:{title:'Intervals',est:'~32 min',warm:'5–10 min easy jog + drills',main:['8 × 1 min HARD','90 sec easy between'],cool:'5 min easy + stretch',note:'Same effort as week 1, two more reps. Hold pace on the last two.'},
+    sat:{title:'Base Run',est:'24 min',warm:'Ease into it the first few minutes',main:['24 min easy, conversational pace'],cool:'Walk it in + stretch',note:'Easy = you could talk in full sentences. This is the engine work.'}},
+ 3:{tue:{title:'Intervals',est:'~30 min',warm:'5–10 min easy jog + drills',main:['5 × 2 min HARD','2 min easy between'],cool:'5 min easy + stretch',note:'Longer reps — settle into a strong, repeatable pace, not a sprint.'},
+    sat:{title:'Base Run',est:'28 min',warm:'Ease in',main:['28 min easy, conversational pace'],cool:'Walk + stretch',note:'Stay easy even if you feel good. Aerobic base pays off at the finish line.'}},
+ 4:{tue:{title:'Intervals',est:'~32 min',warm:'5–10 min easy jog + drills',main:['6 × 2 min HARD','90 sec easy between'],cool:'5 min easy + stretch',note:'Shorter rest than last week — hold your form as it bites.'},
+    sat:{title:'Base + Tempo',est:'32 min',warm:'Ease in',main:['27 min easy','5 min tempo to finish'],cool:'Walk + stretch',note:'Tempo = comfortably hard, a few words at a time. Controlled, not all-out.'}},
+ 5:{tue:{title:'Intervals',est:'~30 min',warm:'5–10 min easy jog + drills',main:['4 × 3 min HARD','2 min easy between'],cool:'5 min easy + stretch',note:'3-min reps build 2-mile staying power. Even effort across all four.'},
+    sat:{title:'Base + Tempo',est:'34 min',warm:'Ease in',main:['30 min easy','4 × 1 min tempo in the last stretch, 1 min easy between'],cool:'Walk + stretch',note:'Legs learn to change gears while already tired.'}},
+ 6:{tue:{title:'Intervals — Peak',est:'~34 min',warm:'5–10 min easy jog + drills',main:['5 × 3 min HARD','2 min easy between'],cool:'5 min easy + stretch',note:'Biggest session of the block. Hold pace to rep 5 and your 2-mile is ready.'},
+    sat:{title:'Tempo Run',est:'~36 min',warm:'10 min easy jog',main:['10 min tempo — steady, comfortably hard','10–15 min easy to finish'],cool:'Walk + stretch',note:'A sustained tempo block is the best single predictor of a strong 2-mile.'}},
+ 7:{tue:{title:'Sharpener (taper)',est:'~22 min',warm:'8 min easy jog',main:['4 × 1 min at goal 2-mile pace','2 min easy between','Finish with 4 × 20 sec strides'],cool:'5 min easy walk',note:'Stay sharp, stay fresh. Snappy, not exhausting — Saturday is the test.'},
+    sat:{title:'FINAL 2-Mile Time Trial',est:'~25 min',warm:'10 min easy + 3 strides',main:['Run 2 miles all-out, even splits','Empty the tank on the last quarter'],cool:'5–10 min walk',note:'Compare to your week-1 baseline. That gap is 7 weeks of work.'}}
 };
-function kbMinutes(week){ return week<=3 ? 20 : 25; }
-const WEIGHT_GUIDE = 'Beginner 8–12 kg (18–26 lb) · Intermediate 16–20 kg (35–44 lb) · Advanced 20–28 kg+ (44–62 lb+). Pick a bell you can move with clean form even tired. Master the move, then master it fatigued, then go heavier. Expect to want a lighter bell for the pressing session.';
-const SCALING = '<b>Easier:</b> cut to 10–15 min · bodyweight lunges & Cossacks · swap jump squats for KB sumo squats or plain squats.<br><b>Harder:</b> heavier bell · push to 25–30 min · slow the lowering.';
 
 /* ---------- Move glossary ---------- */
 const MOVES_BW = [
@@ -342,16 +367,12 @@ const MOVES_BW = [
  ["Wood Chop","Diagonal chop across your body — high on one side down to low on the other. Ball for load.","Core · Obliques"],
  ["Burpee","Squat, kick your feet back, push-up, jump your feet in, explode into a jump. That's 1 rep.","Full body"]
 ];
-const MOVES_KB = [
- ["Kettlebell Swing","Hinge at the hips and snap them forward to float the bell to chest height — a hip drive, not a squat or an arm raise. Flat back, glutes tight at the top.","Hinge · Power · Grip"],
- ["Goblet Squat","Hold the bell at your chest with both hands and squat deep, elbows inside your knees, chest tall.","Legs · Core"],
- ["Reverse Lunge","Holding the bell, step back and drop your rear knee toward the floor, then drive up. Per side.","Legs · Balance"],
- ["Cossack Squat","Feet wide, shift over one bent leg while the other stays straight, then sink low. Big for hips. Per side.","Legs · Mobility"],
- ["KB Sumo Jump Squat","Wide stance, bell hanging between your legs. Squat, then jump explosively; land soft.","Legs · Power"],
- ["Single-Arm Clean & Press","Clean the bell from between your legs to the rack, then press it overhead. Lower under control. Per side.","Push · Full body"],
- ["Bent-Over Row","Hinge forward, flat back, row the bell to your hip, squeeze the upper back. Per side.","Pull · Upper back"],
- ["KB Thruster","A goblet front squat straight into an overhead press in one motion — drive out of the bottom to launch the press.","Full body"],
- ["Russian Twist","Sit balanced with feet up, hold the bell and rotate side to side, tapping near the floor. Per side.","Core · Obliques"]
+const MOVES_RUN = [
+ ["Base / Easy Run","Steady, conversational pace — you could hold a chat. Builds the aerobic engine that carries your 2-mile. Most of your running lives here.","Aerobic base"],
+ ["Intervals / Speed","Short hard efforts (1–3 min) with easy recovery between. Raises your top end and 2-mile pace. Mark reps off poles or mailboxes.","Speed · VO2"],
+ ["Tempo","A sustained 'comfortably hard' effort — a few words at a time, not sentences. Best single predictor of 2-mile performance.","Threshold"],
+ ["Strides","15–20 sec of smooth, fast running (not a sprint) with full recovery. Sharpens turnover and form before a test.","Form · Speed"],
+ ["2-Mile Time Trial","Warm up, then run 2 miles all-out at an even effort. Your benchmark — run it week 1 and week 7 to measure the gain.","ACFT · Benchmark"]
 ];
 
 /* ---------- Storage ---------- */
@@ -360,8 +381,9 @@ try { localStorage.setItem('mb_t','1'); localStorage.removeItem('mb_t'); hasLS =
 function load(){ if(!hasLS) return; for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i); if(k.startsWith('mb:')) store[k]=localStorage.getItem(k);} }
 function setKey(k,v){ store[k]=v?'1':''; if(hasLS){ try{ v?localStorage.setItem(k,'1'):localStorage.removeItem(k);}catch(e){} } }
 function getKey(k){ return store[k]==='1'; }
-function setNum(k,n){ store[k]=String(n); if(hasLS){ try{ localStorage.setItem(k,String(n)); }catch(e){} } }
-function getNum(k){ const v=store[k]; return v?parseInt(v,10)||0:0; }
+function setStr(k,v){ store[k]=v; if(hasLS){ try{ v?localStorage.setItem(k,v):localStorage.removeItem(k);}catch(e){} } }
+function getStr(k){ return store[k]||''; }
+function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 load();
 
 let viewDate = new Date(); viewDate.setHours(0,0,0,0);
@@ -389,18 +411,18 @@ function renderToday(){
 
   if(inf.status==='before'){
     meta.classList.add('hidden'); const days=-inf.diff;
-    area.innerHTML=`<div class="restcard"><div class="big2">Stand By</div><div class="sub">Starts Mon, Jul 20, 2026 — ${days} day${days!==1?'s':''} out.<br>Take your "before" photo. Run the Power 4 test.</div></div>`;
+    area.innerHTML=`<div class="restcard"><div class="big2">Stand By</div><div class="sub">Starts Mon, Oct 5, 2026 — ${days} day${days!==1?'s':''} out.<br>Take your "before" photo. Run the Power 4 test.</div></div>`;
     buildTally(); return;
   }
   if(inf.status==='after'){
     meta.classList.add('hidden');
-    area.innerHTML=`<div class="restcard"><div class="big2">Complete</div><div class="sub">7 weeks done. Re-test your Power 4 and compare.<br>Then remix the moves into your own weeks.</div></div>`;
+    area.innerHTML=`<div class="restcard"><div class="big2">Complete</div><div class="sub">7 weeks done. Re-test Power 4 and check your 2-mile gap.<br>Then build the next block.</div></div>`;
     buildTally(); return;
   }
 
   meta.classList.remove('hidden');
   document.getElementById('mWeek').textContent = inf.week;
-  document.getElementById('mLevel').textContent = inf.week<=3 ? 'I' : 'II';
+  document.getElementById('mLevel').textContent = inf.week<=3 ? 'BUILD' : 'PEAK';
   const dayCell=document.getElementById('mDay');
   const p=inf.plan;
   if(!p){ dayCell.textContent='REST'; dayCell.className='v';
@@ -425,22 +447,23 @@ function renderToday(){
     area.appendChild(cd);
     refreshStamps();
   } else {
-    dayCell.textContent='KB'; dayCell.className='v kb';
-    const flow=KB[p.f]; const mins=kbMinutes(inf.week);
-    const dkey=`mb:${dk}:kbdone`; const rkey=`mb:${dk}:rounds`;
-    let lis=''; flow.moves.forEach(m=>{ lis+=`<li>${fmtEx(m)}</li>`; });
-    const card=document.createElement('div'); card.className='kbcard';
+    dayCell.textContent='RUN'; dayCell.className='v run';
+    const run=RUNS[inf.week][p.s];
+    const dkey=`mb:${dk}:runlog`; const nkey=`mb:${dk}:runnote`;
+    let lis=''; run.main.forEach(m=>{ lis+=`<li>${fmtEx(m)}</li>`; });
+    const card=document.createElement('div'); card.className='runcard';
     card.innerHTML=`
-      <div class="kb-hd"><div class="l1">Kettlebell · <b>${mins}-min AMRAP</b></div><div class="l2">${flow.title} — as many rounds as possible</div></div>
-      <div class="kb-cue">${flow.cue}</div>
+      <div class="run-hd"><div class="l1">Run · <b>${run.title}</b></div><div class="l2">${run.est} · ${p.s==='tue'?'Speed':'Endurance'}</div></div>
+      <div class="run-cue">${run.note}</div>
+      <div class="run-blk"><span class="rl">Warm-up</span>${run.warm}</div>
       <ol class="circuit">${lis}</ol>
-      <div class="stepper"><span class="lab">Rounds done</span><button id="kbMinus">–</button><span class="val" id="kbVal">${getNum(rkey)}</span><button id="kbPlus">+</button></div>
-      <div class="kblog ${getKey(dkey)?'done':''}" data-key="${dkey}"><div class="box"></div><div class="t1">Log session complete</div></div>
-      <details class="kbmore"><summary>Weight guide</summary><div class="inner">${WEIGHT_GUIDE}</div></details>
-      <details class="kbmore"><summary>Scaling</summary><div class="inner">${SCALING}</div></details>`;
+      <div class="run-blk"><span class="rl">Cool-down</span>${run.cool}</div>
+      <div class="runin"><input id="runNote" type="text" placeholder="Log your time / notes" value="${esc(getStr(nkey))}"></div>
+      <div class="runlog ${getKey(dkey)?'done':''}" data-key="${dkey}"><div class="box"></div><div class="t1">Log run complete</div></div>
+      <details class="kbmore"><summary>Effort guide</summary><div class="inner"><b>Easy</b> — full sentences, nose-breathing (zone 2)<br><b>Tempo</b> — comfortably hard, a few words at a time<br><b>Hard</b> — ~5K effort, heavy but controlled<br><b>Strides</b> — 15–20 sec smooth &amp; fast, full recovery</div></details>
+      <details class="kbmore"><summary>Sidewalk tips</summary><div class="inner">Mark intervals off mailboxes, poles or driveways — no track needed. Clock runs through crossings; it's effort and time, not perfect distance. Face traffic where there's no sidewalk; headlamp / reflective gear after dark. A phone app measures the 2-mile time trials.</div></details>`;
     area.appendChild(card);
-    document.getElementById('kbMinus').onclick=()=>{ const n=Math.max(0,getNum(rkey)-1); setNum(rkey,n); document.getElementById('kbVal').textContent=n; };
-    document.getElementById('kbPlus').onclick=()=>{ const n=getNum(rkey)+1; setNum(rkey,n); document.getElementById('kbVal').textContent=n; };
+    document.getElementById('runNote').addEventListener('input', e=>setStr(nkey, e.target.value));
   }
   buildTally();
 }
@@ -457,7 +480,7 @@ function sessionDates(){ const list=[]; for(let w=1;w<=7;w++){ for(const off of 
 function dayComplete(d){
   const inf=info(d); if(inf.status!=='in'||!inf.plan) return false;
   const dk=ymd(d); const p=inf.plan;
-  if(p.t==='kb') return getKey(`mb:${dk}:kbdone`);
+  if(p.t==='run') return getKey(`mb:${dk}:runlog`);
   const day=WEEKS[inf.week][p.k];
   for(let si=0;si<day.sets.length;si++) for(let ii=0;ii<day.sets[si].length;ii++) if(!getKey(`mb:${dk}:s${si}:i${ii}`)) return false;
   return getKey(`mb:${dk}:cardio`);
@@ -466,11 +489,11 @@ function buildTally(){
   const el=document.getElementById('tally'); el.innerHTML='';
   const dates=sessionDates(); let done=0;
   const today=new Date(); today.setHours(0,0,0,0);
-  dates.forEach((d,i)=>{
+  dates.forEach((d)=>{
     const c=document.createElement('div'); c.className='cell';
     const p=info(d).plan;
-    if(dayComplete(d)){ c.className='cell '+(p.t==='kb'?'kbon':'bwon'); c.textContent='✓'; done++; }
-    else { c.textContent=(p.t==='kb'?'K':'B'); if(d.getTime()===today.getTime()) c.classList.add('now'); }
+    if(dayComplete(d)){ c.className='cell '+(p.t==='run'?'runon':'bwon'); c.textContent='✓'; done++; }
+    else { c.textContent=(p.t==='run'?'R':'B'); if(d.getTime()===today.getTime()) c.classList.add('now'); }
     el.appendChild(c);
   });
   document.getElementById('tallyCount').textContent = done+' / 35';
@@ -478,7 +501,7 @@ function buildTally(){
 
 /* ---------- Interactions ---------- */
 document.getElementById('workoutArea').addEventListener('click',e=>{
-  const t=e.target.closest('.row')||e.target.closest('.cardio')||e.target.closest('.kblog');
+  const t=e.target.closest('.row')||e.target.closest('.cardio')||e.target.closest('.runlog');
   if(!t) return;
   const key=t.dataset.key; const now=!getKey(key);
   setKey(key, now); t.classList.toggle('done', now);
@@ -488,7 +511,7 @@ document.getElementById('prevDay').onclick=()=>{ viewDate.setDate(viewDate.getDa
 document.getElementById('nextDay').onclick=()=>{ viewDate.setDate(viewDate.getDate()+1); renderToday(); };
 document.getElementById('jumpToday').onclick=()=>{ viewDate=new Date(); viewDate.setHours(0,0,0,0); renderToday(); };
 document.getElementById('resetBtn').onclick=()=>{
-  if(confirm('Clear every check-off, round count and log, and start over?')){
+  if(confirm('Clear every check-off, run log and note, and start over?')){
     Object.keys(store).forEach(k=>{ if(k.startsWith('mb:')){ store[k]=''; if(hasLS){try{localStorage.removeItem(k);}catch(e){}} } });
     renderToday();
   }
@@ -502,21 +525,18 @@ function renderPlan(){
     const isCur=cur.status==='in'&&cur.week===w;
     const wk=document.createElement('div'); wk.className='wk'+(isCur?' open':'');
     let body='';
-    // bodyweight days
     const bwmap={mon:'Set A',wed:'Set B',fri:'Set C'};
     ['mon','wed','fri'].forEach(dk=>{
       const day=WEEKS[w][dk]; let lines='';
       day.sets.forEach((s,i)=>{ lines+=`<div class="setline"><b>S${i+1}</b> &nbsp;${s.map(fmtEx).join(' · ')}</div>`; });
       body+=`<div class="day"><div class="dh">${dk}<span>bodyweight · ${bwmap[dk]}</span></div>${lines}<div class="cline">🔥 ${day.cardio}</div></div>`;
     });
-    // kettlebell days
-    const mins=kbMinutes(w);
-    [['tue','A'],['sat','B']].forEach(([lbl,f])=>{
-      const flow=KB[f]; let lines='';
-      flow.moves.forEach(m=>{ lines+=`<div class="kbline">• ${fmtEx(m)}</div>`; });
-      body+=`<div class="day kbday"><div class="dh">${lbl}<span>kettlebell · ${mins}-min AMRAP</span></div>${lines}</div>`;
+    [['tue','tue'],['sat','sat']].forEach(([lbl,s])=>{
+      const run=RUNS[w][s]; let lines='';
+      run.main.forEach(m=>{ lines+=`<div class="runline">• ${fmtEx(m)}</div>`; });
+      body+=`<div class="day runday"><div class="dh">${lbl}<span>run · ${run.title} · ${run.est}</span></div>${lines}</div>`;
     });
-    wk.innerHTML=`<div class="wk-hd"><div class="n">Wk ${w}</div><div class="lv">Level ${w<=3?'I':'II'}</div>${isCur?'<div class="cur">NOW</div>':''}<div class="arw">›</div></div><div class="wk-body">${body}</div>`;
+    wk.innerHTML=`<div class="wk-hd"><div class="n">Wk ${w}</div><div class="lv">${w<=3?'Build':'Peak'} · Lvl II</div>${isCur?'<div class="cur">NOW</div>':''}<div class="arw">›</div></div><div class="wk-body">${body}</div>`;
     wk.querySelector('.wk-hd').onclick=()=>wk.classList.toggle('open');
     list.appendChild(wk);
   }
@@ -524,10 +544,10 @@ function renderPlan(){
 
 /* ---------- Moves ---------- */
 function renderMoves(){
-  const bw=document.getElementById('moveListBW'); const kb=document.getElementById('moveListKB');
-  bw.innerHTML=''; kb.innerHTML='';
+  const bw=document.getElementById('moveListBW'); const rn=document.getElementById('moveListRun');
+  bw.innerHTML=''; rn.innerHTML='';
   MOVES_BW.forEach(m=>{ const d=document.createElement('div'); d.className='move'; d.innerHTML=`<h3>${m[0]}</h3><p>${m[1]}</p><div class="tags">${m[2]}</div>`; bw.appendChild(d); });
-  MOVES_KB.forEach(m=>{ const d=document.createElement('div'); d.className='move'; d.innerHTML=`<h3>${m[0]}</h3><p>${m[1]}</p><div class="tags">${m[2]}</div>`; kb.appendChild(d); });
+  MOVES_RUN.forEach(m=>{ const d=document.createElement('div'); d.className='move'; d.innerHTML=`<h3>${m[0]}</h3><p>${m[1]}</p><div class="tags">${m[2]}</div>`; rn.appendChild(d); });
 }
 
 /* ---------- Nav ---------- */
@@ -543,7 +563,7 @@ document.querySelectorAll('nav button').forEach(b=>{
   };
 });
 
-if(!hasLS){ document.getElementById('footNote').textContent='Heads up: this browser isn\'t saving check-offs between reloads. Hosting the file (GitHub Pages) fixes that.'; }
+if(!hasLS){ document.getElementById('footNote').textContent='Heads up: this browser isn\'t saving check-offs between reloads. Hosting on GitHub Pages fixes that.'; }
 renderToday();
 </script>
 </body>
